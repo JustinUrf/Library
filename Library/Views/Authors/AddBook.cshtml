@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Author
+
+<h1>Assign a Book to @Html.DisplayFor(model => model.AuthorName)</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.AuthorId)
+
+    @Html.Label("Select a Book")
+    @Html.DropDownList("BookId")
+
+    <input type="submit" value="Save" />
+}
+
+@Html.ActionLink("Cancel", "Details", new { id = Model.AuthorId })

@@ -26,9 +26,7 @@ namespace Library
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<LibraryContext>()
                 .AddDefaultTokenProviders();
-
-      WebApplication app = builder.Build();
-
+      
       builder.Services.Configure<IdentityOptions>(options =>
       {
         // Default Password settings.
@@ -40,7 +38,10 @@ namespace Library
         options.Password.RequiredUniqueChars = 1;
       });
 
-      // app.UseDeveloperExceptionPage();
+      WebApplication app = builder.Build();
+
+
+      app.UseDeveloperExceptionPage();
       app.UseHttpsRedirection();
       app.UseStaticFiles();
 

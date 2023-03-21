@@ -1,0 +1,59 @@
+@{
+  Layout = "_Layout";
+}
+@using Library.Models;
+
+<div class="container">
+
+  <h1>Welcome to the Library!</h1>
+
+
+  <hr>
+
+  <h4>Catalog</h4>
+  @if (Model["catalogs"].Length == 0)
+  {
+    <p>No catalogs have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Catalog thisCatalog in Model["catalogs"])
+    {
+      <li>@Html.ActionLink(@thisCatalog.CatalogName, "Details", "Catalogs", new { id = @thisCatalog.CatalogId})</li>
+    }
+  </ul>
+
+  <hr>
+
+  <h4>Books</h4>
+  @if (Model["books"].Length == 0)
+  {
+    <p>No books have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Book thisBook in Model["books"])
+    {
+      <li>@Html.ActionLink(@thisBook.BookName, "Details", "Books", new { id = @thisBook.BookId})</li>
+    }
+  </ul>
+
+  <hr>
+
+  <h4>Authors</h4>
+  @if (Model["authors"].Length == 0)
+  {
+    <p>No authors have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Author thisAuthor in Model["authors"])
+    {
+      <li>@Html.ActionLink(@thisAuthor.AuthorName, "Details", "Authors", new { id = @thisAuthor.AuthorId})</li>
+    }
+  </ul>
+
+  <hr>
+  <h4>Make sure to sign in to access additional features!</h4>
+  <p>@Html.ActionLink("Manage Books", "Index", "Books")</p> 
+  <p>@Html.ActionLink("Manage Catalog", "Index", "Catalogs")</p>
+  <p>@Html.ActionLink("Manage Authors", "Index", "Authors")</p>
+  <p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
+</div>

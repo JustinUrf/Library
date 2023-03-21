@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Author
+
+<h1>Add an Author</h1>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.AuthorName, "Author Name")
+  @Html.TextBoxFor(model => model.AuthorName)
+  @Html.LabelFor(model => model.AuthorBirthDay, "Author's Birthday")
+  @Html.EditorFor(model => model.AuthorBirthDay)
+
+  <input type="submit" value="add new author" class="btn btn-primary"/>
+}
+
+<p>@Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+
+<p>@Html.ActionLink("See all Authors", "Index")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</
