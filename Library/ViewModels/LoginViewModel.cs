@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ToDoList.ViewModels
+namespace Library.ViewModels
 {
   public class LoginViewModel
   {

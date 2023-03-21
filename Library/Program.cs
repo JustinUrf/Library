@@ -24,7 +24,7 @@ namespace Library
                       );
       
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ToDoListContext>()
+                .AddEntityFrameworkStores<LibraryContext>()
                 .AddDefaultTokenProviders();
 
       WebApplication app = builder.Build();
