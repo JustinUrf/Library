@@ -139,9 +139,10 @@ namespace Library.Controllers
     public ActionResult DeleteJoin(int joinId)
     {
       AuthorBook joinEntry = _db.AuthorBooks.FirstOrDefault(entry => entry.AuthorBookId == joinId);
+      int bookId = joinEntry.BookId;
       _db.AuthorBooks.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Index");
+      return RedirectToAction("Details", new{ id = bookId});
     } 
   }
 }

@@ -18,7 +18,7 @@
   {
     <li>Book: @Html.ActionLink($"{join.Book.BookName}", "Details", "Book", new { id = join.Book.BookId})</li>
 
-    @using (@Html.BeginForm("DeleteJoin", "Author"))
+    @using (@Html.BeginForm("DeleteJoin", "Authors"))
     {
       @Html.Hidden("joinId", @join.AuthorBookId)
       <input type="submit" value="Delete" />
@@ -28,7 +28,10 @@
 
 <p>@Html.ActionLink("Remove", "Delete", new { id = Model.AuthorId }) Author</p>
 
-<p>@Html.ActionLink("Add", "AddBook", new { id = Model.AuthorId }) a Book to this Author</p>
+@if (Model.JoinEntities.Count != 0)
+{
+  <p>@Html.ActionLink("Add", "AddBook", new { id = Model.AuthorId }) a Book to this Author</p>
+}
 
 <p>@Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId })</p>
 

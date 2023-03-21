@@ -17,7 +17,7 @@ namespace Library.Controllers
     private readonly LibraryContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
   
-    public AuthorsController(UserManager<ApplicationUser> userManager, LibraryContext db)
+    public AuthorsController( LibraryContext db)
     {
       _db = db;
     }
@@ -43,7 +43,7 @@ namespace Library.Controllers
 
     public ActionResult Details(int id)
     {
-      ViewBag.MachineId = new SelectList(_db.Books, "MachineId", "MachineName");
+      ViewBag.AuthorId = new SelectList(_db.Books, "AuthorId", "AuthorName");
       Author thisAuthor = _db.Authors
                                   .Include(author => author.JoinEntities)
                                   .ThenInclude(join => join.Book)
@@ -92,10 +92,10 @@ namespace Library.Controllers
     public ActionResult DeleteJoin(int joinId)
     {
       AuthorBook joinEntry = _db.AuthorBooks.FirstOrDefault(entry => entry.AuthorBookId == joinId);
-      int engineerId = joinEntry.AuthorId;
+      int authorId = joinEntry.AuthorId;
       _db.AuthorBooks.Remove(joinEntry);
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = engineerId});
+      return RedirectToAction("Details", new { id = authorId});
     }
 
     [Authorize]
