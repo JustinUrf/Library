@@ -37,7 +37,7 @@ namespace Library.Controllers
 
     public ActionResult Create()
     {
-      ViewBag.CategoryId = new SelectList(_db.Catalogs, "CategoryId", "Name");
+      ViewBag.CatalogId = new SelectList(_db.Catalogs, "CatalogId", "CatalogName");
       return View();
     }
 

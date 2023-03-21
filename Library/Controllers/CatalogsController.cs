@@ -28,6 +28,17 @@ namespace Library.Controllers
       return View(_db.Catalogs.ToList());
     }
 
-    
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Catalog catalog)
+    {
+      _db.Catalogs.Add(catalog);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
