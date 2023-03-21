@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Library.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Library
 {
@@ -23,9 +25,13 @@ namespace Library
                         )
                       );
       
-      builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<LibraryContext>()
-                .AddDefaultTokenProviders();
+      builder.Services.AddIdentity<IdentityUser>()
+                      .AddRoles
+
+      // builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+      //           .AddEntityFrameworkStores<LibraryContext>()
+      //           .AddDefaultTokenProviders();
+                
       
       builder.Services.Configure<IdentityOptions>(options =>
       {

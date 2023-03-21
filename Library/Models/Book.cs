@@ -10,7 +10,8 @@ namespace Library.Models
     public string BookName { get; set; }
     [Range(1, int.MaxValue, ErrorMessage = "You must add your book to a Catalog.")]
     public int CatalogId { get; set; }
-    public List<AuthorBook> JoinEtntites { get;}
+    public Catalog Catalog {get; set; }
+    public List<AuthorBook> JoinEntities { get;}
     public ApplicationUser User { get; set; }
     
   }
