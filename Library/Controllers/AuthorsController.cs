@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace Library.Controllers
 {
-  public class AuthorController : Controller
+  public class AuthorsController : Controller
   {
     private readonly LibraryContext _db;
   
-    public AuthorController(LibraryContext db)
+    public AuthorsController(LibraryContext db)
     {
       _db = db;
     }
@@ -76,6 +76,7 @@ namespace Library.Controllers
       return View(thisAuthor);
     }
     
+    [HttpPost]
     public ActionResult Edit(Author author)
     {
       _db.Authors.Update(author);

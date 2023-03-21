@@ -11,12 +11,12 @@
 
 @using (Html.BeginForm())
 {
-  @Html.LabelFor(model => model.BookName)
+  @Html.LabelFor(model => model.BookName, "Book Name")
   @Html.TextBoxFor(model => model.BookName)
 
-  @Html.LabelFor(justin => justin.CatalogId)
+  @Html.LabelFor(model => model.CatalogId, "Catalog Id")
   @Html.DropDownList("CatalogId")
-
-  <input type="submit" value="Add new book" class="btn btn-default" />
+  <br>
+  <input type="submit" value="Add new book" class="" />
 }
 <p>@Html.ActionLink("Show all books", "Index")</p>

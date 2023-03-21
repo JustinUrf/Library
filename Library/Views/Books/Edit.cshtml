@@ -3,21 +3,17 @@
 }
 
 @using Library.Models;
+@model Library.Models.Book;
 
-<h1>Books </h1>
+<h1>Edit @Model.BookName </h1>
 
-@if (@Model.Count == 0)
+@using (Html.BeginForm())
 {
-  <h3>No books have been added yet!</h3>
-} 
-else
-{
-  <ul>
-    @foreach (Book thisBook in Model)
-    {
-      <li>@Html.ActionLink($"{thisBook.BookName}", "Details", new { id = thisBook.BookId }) | @thisBook.Catalog.CatalogName</li>
-    }
-  </ul>
+  @Html.HiddenFor(model => model.BookId)
+
+  @Html.LabelFor(model => model.BookName, "Name: ")
+  @Html.TextBoxFor(model => model.BookName)
+  <input type="submit" value="save" />
 }
 
 <p>@Html.ActionLink("Add new item", "Create")</p>

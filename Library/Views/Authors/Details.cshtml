@@ -5,7 +5,8 @@
 @using Library.Models
 @model Library.Models.Author
 
-<h1>Engineer: @Html.DisplayFor(model => model.AuthorName)</h1>
+<h1>Author: @Html.DisplayFor(model => model.AuthorName)</h1>
+<h2>Birthday: @Html.DisplayFor(model => model.AuthorBirthDay)</h2>
 
 @if (Model.JoinEntities.Count == 0)
 {

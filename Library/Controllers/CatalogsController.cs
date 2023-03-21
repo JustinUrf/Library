@@ -40,5 +40,35 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult Details(int id)
+    {
+      Catalog thisCatalog = _db.Catalogs
+                            .Include(books => books.Books)
+                            .ThenInclude(book => book.JoinEntities)
+                            .ThenInclude(join => join.Author)
+                            .FirstOrDefault(catalog => catalog.CatalogId == id);
+      return View(thisCatalog);
+    }
+
+    public ActionResult Edit(int id)
+    {
+      Catalog thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
+      return View(thisCatalog);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Catalog catalog)
+    {
+      _db.Catalogs.Update(catalog);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Delete(int id)
+    {
+      Catalog thisCatalog = _db.Catalogs.FirstOrDefault(catalog => catalog.CatalogId == id);
+      return View(thisCatalog);
+    }
   }
 }

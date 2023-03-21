@@ -51,9 +51,6 @@ namespace Library.Controllers
       }
       else
       {
-        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-        thisBook.User = currentUser;
         _db.Books.Add(thisBook);
         _db.SaveChanges();
         return RedirectToAction("Index");
@@ -121,6 +118,22 @@ namespace Library.Controllers
       }
       return RedirectToAction("Details", new { id = book.BookId });
     }   
+
+    public ActionResult Checkout(int id)
+    {
+      Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == id);
+      return View(thisBook);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> CheckoutBook(int id)
+    {
+      Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == id);
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      thisBook.User = currentUser;
+      return RedirectToAction("Index", "Account");
+    }
 
     [HttpPost]
     public ActionResult DeleteJoin(int joinId)

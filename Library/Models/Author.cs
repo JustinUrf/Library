@@ -8,7 +8,7 @@ namespace Library.Models
   {
     public int AuthorId { get; set; }
     public string AuthorName { get; set; }
-    public DateOnly AuthorBirthDay { get; set; }
+    public DateTime AuthorBirthDay { get; set; }
     public List<AuthorBook> JoinEntities { get; }
   }
 }

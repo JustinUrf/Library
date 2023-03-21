@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models
+@model Library.Models.Book
+
+<h1>Book Checkout</h1>
+
+<h3>Checkout @Html.ActionLink($"{Model.BookName}", "Details")?</h3>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.BookId)
+  @Html.HiddenFor(model => model.BookName)
+
+  <input type="submit" value="Checkout" />
+}
