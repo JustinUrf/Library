@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Library.Models;
 using System.Linq;
 
@@ -21,6 +22,7 @@ namespace Library.Controllers
       return View(_db.Authors.ToList());
     }
 
+    [Authorize]
     public ActionResult Create()
     {
       return View();
@@ -44,7 +46,8 @@ namespace Library.Controllers
       return View(thisAuthor);
     }
 
-    public ActionResult AddMachine(int id)
+    [Authorize]
+    public ActionResult AddBook(int id)
     {
       Author thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
       ViewBag.MachineId = new SelectList(_db.Books, "BookId", "BookName");
@@ -52,7 +55,7 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddMachine(Author author, int bookId)
+    public ActionResult AddBook(Author author, int bookId)
     {
       #nullable enable
       AuthorBook? joinEntity = _db.AuthorBooks.FirstOrDefault(join => (join.BookId == bookId && join.AuthorId == author.AuthorId));
@@ -66,6 +69,7 @@ namespace Library.Controllers
 
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Author thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
@@ -79,6 +83,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = author.AuthorId});
     }
     
+    [Authorize]
     public ActionResult DeleteJoin(int joinId)
     {
       AuthorBook joinEntry = _db.AuthorBooks.FirstOrDefault(entry => entry.AuthorBookId == joinId);
@@ -88,6 +93,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = engineerId});
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       Author thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);

@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Catalog
+
+<h2>Edit</h2>
+
+<h4>Edit this catalog: @Html.DisplayFor(model => model.CatalogName)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.CatalogId)
+
+  @Html.LabelFor(model => model.CatalogName)
+  @Html.EditorFor(model => model.CatalogName)
+
+  <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index")</p>

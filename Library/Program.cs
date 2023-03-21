@@ -25,12 +25,10 @@ namespace Library
                         )
                       );
       
-      builder.Services.AddIdentity<IdentityUser>()
-                      .AddRoles
 
-      // builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-      //           .AddEntityFrameworkStores<LibraryContext>()
-      //           .AddDefaultTokenProviders();
+      builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<LibraryContext>()
+                .AddDefaultTokenProviders();
                 
       
       builder.Services.Configure<IdentityOptions>(options =>

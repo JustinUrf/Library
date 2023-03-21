@@ -12,26 +12,27 @@ using System.Security.Claims;
 namespace Library.Controllers
 {
   [Authorize]
-  public class ItemsController : Controller
+  public class BooksController : Controller
   {
     private readonly LibraryContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public ItemsController(UserManager<ApplicationUser> userManager, LibraryContext db)
+    public BooksController(UserManager<ApplicationUser> userManager, LibraryContext db)
     {
       _userManager = userManager;
       _db = db;
     }
 
-    public async Task<ActionResult> Index()
+    [AllowAnonymous]
+    public ActionResult Index()
     {
-      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      List<Book> userBooks = _db.Books
-                          .Where(entry => entry.User.Id == currentUser.Id)
-                          .Include(item => item.Catalog)
-                          .ToList();
-      return View(userBooks);
+      // string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      // ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      // List<Book> userBooks = _db.Books
+      //                     .Where(entry => entry.User.Id == currentUser.Id)
+      //                     .Include(book => book.Catalog)
+      //                     .ToList();
+      return View(_db.Books.ToList());
     }
 
     public ActionResult Create()
@@ -59,6 +60,7 @@ namespace Library.Controllers
       }
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Book thisBook = _db.Books
@@ -107,7 +109,7 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddTag(Book book, int authorId)
+    public ActionResult AddAuthor(Book book, int authorId)
     {
       #nullable enable
       AuthorBook? joinEntity = _db.AuthorBooks.FirstOrDefault(join => (join.AuthorId == authorId && join.BookId == book.BookId));

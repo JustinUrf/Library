@@ -1,0 +1,25 @@
+23 lines (18 sloc)  465 Bytes
+
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models;
+
+<h1>Libraries</h1>
+
+@if (@Model.Count == 0)
+{
+  <h3>No catalogs have been added yet!</h3>
+} 
+
+<ul>
+  @foreach(Catalog thisCatalog in Model)
+  {
+    <li>@Html.ActionLink($"{thisCatalog.CatalogName }", "Details", new { id = thisCatalog.CatalogId })</li>
+  }
+</ul>
+
+<p>@Html.ActionLink("Add new catalog", "Create")</p>
+<p>@Html.ActionLink("Add new book", "Create", "Items")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
