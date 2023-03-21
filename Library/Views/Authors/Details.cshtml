@@ -10,7 +10,7 @@
 
 @if (Model.JoinEntities.Count == 0)
 {
-  <h3>You haven't added any books to this author. Add one @Html.ActionLink("Now", "AddBook")</h3>
+  <h3>You haven't added any books to this author. Add one @Html.ActionLink("Now", "AddBook", new { id = Model.AuthorId })</h3>
 }
 
 <ul>

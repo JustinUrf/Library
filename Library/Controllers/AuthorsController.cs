@@ -5,14 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Library.Models;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library.Controllers
 {
+  [Authorize]
   public class AuthorsController : Controller
   {
     private readonly LibraryContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
   
-    public AuthorsController(LibraryContext db)
+    public AuthorsController(UserManager<ApplicationUser> userManager, LibraryContext db)
     {
       _db = db;
     }
@@ -49,8 +54,8 @@ namespace Library.Controllers
     [Authorize]
     public ActionResult AddBook(int id)
     {
-      Author thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
-      ViewBag.MachineId = new SelectList(_db.Books, "BookId", "BookName");
+      Author thisAuthor = _db.Authors.FirstOrDefault(authors => authors.AuthorId == id);
+      ViewBag.BookId = new SelectList(_db.Books, "BookId", "BookName");
       return View(thisAuthor);
     }
 
@@ -66,7 +71,6 @@ namespace Library.Controllers
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = author.AuthorId});
-
     }
 
     [Authorize]

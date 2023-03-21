@@ -11,7 +11,7 @@
 
 @if (Model.JoinEntities.Count == 0)
 {
-  <h4>You haven't assigned an Author to this book! Click @Html.ActionLink("here", "AddAuthor") to add an author to this book!</h4>
+  <h4>You haven't assigned an Author to this book! Click @Html.ActionLink("here", "AddAuthor", new { id = Model.BookId }) to add an author to this book!</h4>
 }
 else
 {
@@ -29,3 +29,4 @@ else
 
 
 <p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Add a new Author Here", "AddAuthor", new { id = Model.BookId})</p>

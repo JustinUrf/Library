@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Library.Models;
-using System.Collections.Generic;
+// using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,7 +42,7 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Book thisBook, int CatalogId)
+    public ActionResult Create(Book thisBook, int CatalogId)
     {
       if (!ModelState.IsValid)
       {
@@ -101,7 +101,7 @@ namespace Library.Controllers
     public ActionResult AddAuthor(int id)
     {
       Book thisBook = _db.Books.FirstOrDefault(books => books.BookId == id);
-      ViewBag.TagId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
       return View(thisBook);
     }
 
