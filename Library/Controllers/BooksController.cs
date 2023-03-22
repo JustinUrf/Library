@@ -149,12 +149,9 @@ namespace Library.Controllers
     }
 
 
-    public ActionResult Error(string error, int id)
+    public ActionResult Error(Error error)
     {
-      Error newError = new Error{};
-      newError.ErrorMessage = error;
-      newError.StoredId = id;
-      return View(newError);
+      return View(error);
     }
 
     public ActionResult AddCopy(int id)
@@ -168,8 +165,11 @@ namespace Library.Controllers
     {
       if (num == 0)
       {
+        Error error = new Error {};
         string errorMessage = "Input Needs To Be A NUMBER Greater Than 0 If You Want To Add Copies!";
-        return RedirectToAction("Error", new { error = errorMessage });
+        error.ErrorMessage = errorMessage;
+        error.StoredId = book.BookId;
+        return RedirectToAction("Error", error);
       }
       Book thisbook = _db.Books.FirstOrDefault(model => model.BookId == book.BookId);
       thisbook.Copies += num;
