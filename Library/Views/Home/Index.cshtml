@@ -32,7 +32,7 @@
   <ul>
     @foreach (Book thisBook in Model["books"])
     {
-      <li>@Html.ActionLink(@thisBook.BookName, "Details", "Books", new { id = @thisBook.BookId})</li>
+      <li>@Html.ActionLink(@thisBook.BookName, "Details", "Books", new { id = @thisBook.BookId}) | Available @thisBook.Copies / out of @thisBook.MaxCopies</li>
     }
   </ul>
 

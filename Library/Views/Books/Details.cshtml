@@ -8,6 +8,7 @@
 <h2>Details</h2>
 
 <h3>Details for @Model.BookName</h3>
+<br>
 
 @if (Model.JoinEntities.Count == 0)
 {
@@ -26,7 +27,9 @@ else
     }
   }
 }
+<br>
 
-
+<p>@Html.ActionLink("Edit this book", "Edit", new { id = Model.BookId })</p>
+<p>@Html.ActionLink("Checkout this book", "Checkout", new { id = Model.BookId })</p>
 <p>@Html.ActionLink("Back to list", "Index")</p>
-<p>@Html.ActionLink("Add a new Author Here", "AddAuthor", new { id = Model.BookId})</p>
+<p>@Html.ActionLink("Add a new Author Here", "AddAuthor", new { id = Model.BookId })</p>

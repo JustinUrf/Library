@@ -14,6 +14,9 @@
   @Html.LabelFor(model => model.BookName, "Book Name")
   @Html.TextBoxFor(model => model.BookName)
 
+  @Html.LabelFor(model => model.Copies, "How many copies?")
+  @Html.TextBoxFor(model => model.Copies)
+  
   @Html.LabelFor(model => model.CatalogId, "Catalog Id")
   @Html.DropDownList("CatalogId")
   <br>

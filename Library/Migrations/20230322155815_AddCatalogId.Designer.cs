@@ -3,6 +3,7 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20230322155815_AddCatalogId")]
+    partial class AddCatalogId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,9 +142,14 @@ namespace Library.Migrations
                     b.Property<int>("MaxCopies")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("BookId");
 
                     b.HasIndex("CatalogId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Books");
                 });
@@ -159,27 +166,6 @@ namespace Library.Migrations
                     b.HasKey("CatalogId");
 
                     b.ToTable("Catalogs");
-                });
-
-            modelBuilder.Entity("Library.Models.UserBook", b =>
-                {
-                    b.Property<int>("UserBookId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("UserBookId");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserBooks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -337,22 +323,11 @@ namespace Library.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Catalog");
-                });
-
-            modelBuilder.Entity("Library.Models.UserBook", b =>
-                {
-                    b.HasOne("Library.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Library.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Book");
+                    b.Navigation("Catalog");
 
                     b.Navigation("User");
                 });

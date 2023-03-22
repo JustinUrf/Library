@@ -42,7 +42,7 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Book thisBook, int CatalogId)
+    public ActionResult Create(Book thisBook, int CatalogId, int Copies)
     {
       if (!ModelState.IsValid)
       {
@@ -51,6 +51,7 @@ namespace Library.Controllers
       }
       else
       {
+        thisBook.MaxCopies = Copies; 
         _db.Books.Add(thisBook);
         _db.SaveChanges();
         return RedirectToAction("Index");
@@ -76,8 +77,9 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public ActionResult Edit(Book book)
+    public ActionResult Edit(Book book, int MaxCopies)
     {
+      book.Copies = MaxCopies;
       _db.Books.Update(book);
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -119,6 +121,7 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = book.BookId });
     }   
 
+    [Authorize]
     public ActionResult Checkout(int id)
     {
       Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == id);
@@ -126,13 +129,22 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> CheckoutBook(int id)
+    public async Task<ActionResult> Checkout(Book book)
     {
-      Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == id);
+    //   Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == id);
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-      thisBook.User = currentUser;
-      return RedirectToAction("Index", "Account");
+    //   thisBook.User = currentUser;
+    //   return RedirectToAction("Index");
+      #nullable enable
+      UserBook? joinEntity = _db.UserBooks.FirstOrDefault(join => (join.User == currentUser && join.BookId == book.BookId));
+      #nullable disable
+      if (joinEntity == null)
+      {
+        _db.UserBooks.Add(new UserBook() { User = currentUser, BookId = book.BookId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = book.BookId });
     }
 
     [HttpPost]
