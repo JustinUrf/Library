@@ -131,20 +131,38 @@ namespace Library.Controllers
     [HttpPost]
     public async Task<ActionResult> Checkout(Book book)
     {
-    //   Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == id);
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-    //   thisBook.User = currentUser;
-    //   return RedirectToAction("Index");
+      // book.Copies = book.Copies - 1;
       #nullable enable
       UserBook? joinEntity = _db.UserBooks.FirstOrDefault(join => (join.User == currentUser && join.BookId == book.BookId));
       #nullable disable
       if (joinEntity == null)
       {
+        Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == book.BookId);
+        thisBook.Copies = thisBook.Copies - 1;
+        _db.Books.Update(thisBook);
         _db.UserBooks.Add(new UserBook() { User = currentUser, BookId = book.BookId });
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = book.BookId });
+    }
+
+    public ActionResult AddCopy(int id)
+    {
+      Book thisbook = _db.Books.FirstOrDefault(model => model.BookId == id);
+      return View(thisbook);
+    }
+
+    [HttpPost]
+    public ActionResult AddCopy(Book book, int num)
+    {
+      Book thisbook = _db.Books.FirstOrDefault(model => model.BookId == book.BookId);
+      thisbook.Copies += num;
+      _db.Update(thisbook);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = thisbook.BookId });
+
     }
 
     [HttpPost]

@@ -9,10 +9,18 @@
 
 <h3>Checkout @Html.ActionLink($"{Model.BookName}", "Details")?</h3>
 
-@using (Html.BeginForm())
+@if (Model.Copies > 0)
 {
-  @Html.HiddenFor(model => model.BookId)
-  @Html.HiddenFor(model => model.BookName)
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.BookId)
+    @Html.HiddenFor(model => model.BookName)
 
-  <input type="submit" value="Checkout" />
+    <input type="submit" value="Checkout" />
+  }
 }
+else
+{
+  <h4>All @Model.MaxCopies of this book have been checked out! Please come back later! </h4>
+}
+
