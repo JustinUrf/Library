@@ -5,6 +5,7 @@
 @using Library.Models;
 @model Library.Models.Book;
 
+
 <h1>Add Copies to this Book @Model.BookName</h1>
 
 @using (Html.BeginForm())
@@ -12,4 +13,9 @@
   @Html.HiddenFor(model => model.BookId)
 
   @Html.Label("Enter Number of Copies to Add")
+  @Html.TextBox("num")
+  <input type="submit" value="Add Copies">
 }
+
+
+<p>@Html.ActionLink("Cancel", "Details", new { id = Model.BookId })</p>

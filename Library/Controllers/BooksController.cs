@@ -148,6 +148,15 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = book.BookId });
     }
 
+
+    public ActionResult Error(string error, int id)
+    {
+      Error newError = new Error{};
+      newError.ErrorMessage = error;
+      newError.StoredId = id;
+      return View(newError);
+    }
+
     public ActionResult AddCopy(int id)
     {
       Book thisbook = _db.Books.FirstOrDefault(model => model.BookId == id);
@@ -157,12 +166,17 @@ namespace Library.Controllers
     [HttpPost]
     public ActionResult AddCopy(Book book, int num)
     {
+      if (num == 0)
+      {
+        string errorMessage = "Input Needs To Be A NUMBER Greater Than 0 If You Want To Add Copies!";
+        return RedirectToAction("Error", new { error = errorMessage });
+      }
       Book thisbook = _db.Books.FirstOrDefault(model => model.BookId == book.BookId);
       thisbook.Copies += num;
+      thisbook.MaxCopies += num;
       _db.Update(thisbook);
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = thisbook.BookId });
-
     }
 
     [HttpPost]

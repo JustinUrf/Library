@@ -1,0 +1,11 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Library.Models
+@model Library.Models.Error
+
+<h2>@Model.ErrorMessage</h2>
+
+@* <p>@Html.ActionLink("Back to Adding Copies", "Details", new { id = Model.StoredId})</p> *@
+<p>@Html.ActionLink("Manage Books", "Index", "Books")</p> 
