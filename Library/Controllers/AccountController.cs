@@ -25,6 +25,7 @@ namespace Library.Controllers
       _db = db;
     }
 
+    [Authorize]
     public async Task<ActionResult> Index()
     { 
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
