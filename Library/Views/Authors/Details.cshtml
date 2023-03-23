@@ -5,38 +5,40 @@
 @using Library.Models
 @model Library.Models.Author
 
-<h1>Author: @Html.DisplayFor(model => model.AuthorName)</h1>
-<h2>Birthday: @Html.DisplayFor(model => model.AuthorBirthDay)</h2>
-
-@if (Model.JoinEntities.Count == 0)
-{
-  <h3>You haven't added any books to this author. Add one @Html.ActionLink("Now", "AddBook", new { id = Model.AuthorId })</h3>
-}
-
-<ul>
-  @foreach (AuthorBook join in Model.JoinEntities)
+<div class="container">
+  <h1>Author: @Html.DisplayFor(model => model.AuthorName)</h1>
+  <h2>Birthday: @Html.DisplayFor(model => model.AuthorBirthDay)</h2>
+  
+  @if (Model.JoinEntities.Count == 0)
   {
-    <li>Book: @Html.ActionLink($"{join.Book.BookName}", "Details", "Book", new { id = join.Book.BookId})</li>
-
-    @using (@Html.BeginForm("DeleteJoin", "Authors"))
-    {
-      @Html.Hidden("joinId", @join.AuthorBookId)
-      <input type="submit" value="Delete" />
-    }
+    <h3>You haven't added any books to this author. Add one @Html.ActionLink("Now", "AddBook", new { id = Model.AuthorId })</h3>
   }
-</ul>
-
-<p>@Html.ActionLink("Remove", "Delete", new { id = Model.AuthorId }) Author</p>
-
-@if (Model.JoinEntities.Count != 0)
-{
-  <p>@Html.ActionLink("Add", "AddBook", new { id = Model.AuthorId }) a Book to this Author</p>
-}
-
-<p>@Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId })</p>
-
-<p>See all @Html.ActionLink("Authors", "Index")</p>
-
-<p>See all @Html.ActionLink("Books", "Index", "Books")</p>
-
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+  
+  <ul>
+    @foreach (AuthorBook join in Model.JoinEntities)
+    {
+      <li>Book: @Html.ActionLink($"{join.Book.BookName}", "Details", "Book", new { id = join.Book.BookId})</li>
+  
+      @using (@Html.BeginForm("DeleteJoin", "Authors"))
+      {
+        @Html.Hidden("joinId", @join.AuthorBookId)
+        <input type="submit" value="Delete" />
+      }
+    }
+  </ul>
+  
+  <p>@Html.ActionLink("Remove", "Delete", new { id = Model.AuthorId }) Author</p>
+  
+  @if (Model.JoinEntities.Count != 0)
+  {
+    <p>@Html.ActionLink("Add", "AddBook", new { id = Model.AuthorId }) a Book to this Author</p>
+  }
+  
+  <p>@Html.ActionLink("Edit", "Edit", new { id = Model.AuthorId })</p>
+  
+  <p>See all @Html.ActionLink("Authors", "Index")</p>
+  
+  <p>See all @Html.ActionLink("Books", "Index", "Books")</p>
+  
+  <p>@Html.ActionLink("Home", "Index", "Home")</p>
+</div>

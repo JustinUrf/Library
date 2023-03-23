@@ -148,6 +148,17 @@ namespace Library.Controllers
       return RedirectToAction("Details", new { id = book.BookId });
     }
 
+    [HttpPost]
+    public ActionResult Return(int joinId)
+    {
+      UserBook join = _db.UserBooks.FirstOrDefault(entry => entry.UserBookId == joinId);
+      Book book = _db.Books.FirstOrDefault(model => model.BookId == join.BookId);
+      book.Copies += 1;
+      _db.Books.Update(book);
+      _db.UserBooks.Remove(join);
+      _db.SaveChanges();
+      return RedirectToAction("Index", "Account");
+    }
 
     public ActionResult Error(Error error)
     {

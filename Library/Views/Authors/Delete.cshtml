@@ -5,12 +5,14 @@
 @using Library.Models
 @model Library.Models.Author
 
-<h1>You are about to delete @Html.DisplayFor(model => model.AuthorName)</h1>
-<h1>Are you sure you want to continue?</h1>
-
-@using (Html.BeginForm())
-{
-  <input type="submit" value="Delete" />
-}
-
-@Html.ActionLink($"Back to {Model.AuthorName}'s Details", "Details", new { id = Model.AuthorId })
+<div class="container">
+  <h1>You are about to delete @Html.DisplayFor(model => model.AuthorName)</h1>
+  <h1>Are you sure you want to continue?</h1>
+  
+  @using (Html.BeginForm())
+  {
+    <input type="submit" value="Delete" />
+  }
+  
+  @Html.ActionLink($"Back to {Model.AuthorName}'s Details", "Details", new { id = Model.AuthorId })
+</div>

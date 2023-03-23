@@ -4,9 +4,11 @@
 
 @model Library.Models.Error
 
-<h2>@ViewBag.errorMessage1</h2>
-
-<h2>@Model.ErrorMessage</h2>
-
-<p>@Html.ActionLink("Back to Details", "Details", new { id = Model.StoredId })</p>
-<p>@Html.ActionLink("Manage Books", "Index", "Books")</p> 
+<div class="container">
+  <h2>@ViewBag.errorMessage1</h2>
+  
+  <h2>@Model.ErrorMessage</h2>
+  
+  <p>@Html.ActionLink("Back to Details", "Details", new { id = Model.StoredId })</p>
+  <p>@Html.ActionLink("Manage Books", "Index", "Books")</p>
+</div>

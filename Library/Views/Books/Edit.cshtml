@@ -5,23 +5,25 @@
 @using Library.Models;
 @model Library.Models.Book;
 
-<h1>Edit @Model.BookName </h1>
-
-@using (Html.BeginForm())
-{
-  @Html.HiddenFor(model => model.BookId)
-
-  @Html.LabelFor(model => model.BookName, "Name: ")
-  @Html.TextBoxFor(model => model.BookName)
-
-  @Html.LabelFor(model => model.MaxCopies, "How many copies?")
-  @Html.TextBoxFor(model => model.MaxCopies)
-
-  @Html.LabelFor(model => model.CatalogId, "Catalog?")
-  @Html.DropDownList("CatalogId")
-
-  <input type="submit" value="save" />
-}
-
-<p>@Html.ActionLink("Add new Book", "Create")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p>
+<div class="container">
+  <h1>Edit @Model.BookName </h1>
+  
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.BookId)
+  
+    @Html.LabelFor(model => model.BookName, "Name: ")
+    @Html.TextBoxFor(model => model.BookName)
+  
+    @Html.LabelFor(model => model.MaxCopies, "How many copies?")
+    @Html.TextBoxFor(model => model.MaxCopies)
+  
+    @Html.LabelFor(model => model.CatalogId, "Catalog?")
+    @Html.DropDownList("CatalogId")
+  
+    <input type="submit" value="save" />
+  }
+  
+  <p>@Html.ActionLink("Add new Book", "Create")</p>
+  <p>@Html.ActionLink("Home", "Index", "Home")</p>
+</div>

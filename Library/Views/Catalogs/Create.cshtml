@@ -4,11 +4,13 @@
 
 @model Library.Models.Catalog
 
-<h4>Add a new catalog</h4>
-@using (Html.BeginForm())
-{
-  @Html.LabelFor(model => model.CatalogName)
-  @Html.TextBoxFor(model => model.CatalogName)
-  <input type="submit" value="Add new catalog" />
-}
-<p>@Html.ActionLink("Show all categories", "Index")</p>
+<div class="container">
+  <h4>Add a new catalog</h4>
+  @using (Html.BeginForm())
+  {
+    @Html.LabelFor(model => model.CatalogName)
+    @Html.TextBoxFor(model => model.CatalogName)
+    <input type="submit" value="Add new catalog" />
+  }
+  <p>@Html.ActionLink("Show all categories", "Index")</p>
+</div>

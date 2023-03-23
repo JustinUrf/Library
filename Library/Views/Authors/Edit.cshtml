@@ -5,18 +5,20 @@
 @using Library.Models
 @model Library.Models.Author
 
-<h1>Edit @Model.AuthorName's information</h1>
-
-@using (Html.BeginForm())
-{
-  @Html.HiddenFor(model => model.AuthorId)
-
-  @Html.LabelFor(model => model.AuthorName, "Name: ")
-  @Html.TextBoxFor(model => model.AuthorName)
-  @Html.LabelFor(model => model.AuthorBirthDay, "Author Birthday")
-  @Html.EditorFor(model => model.AuthorBirthDay)
-  <input type="submit" value="Save"/> <hr>
-
-}
-
-<p>@Html.ActionLink($"Back to {Model.AuthorName}'s Details", "Details", new { id = Model.AuthorId})</p> 
+<div class="container">
+  <h1>Edit @Model.AuthorName's information</h1>
+  
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.AuthorId)
+  
+    @Html.LabelFor(model => model.AuthorName, "Name: ")
+    @Html.TextBoxFor(model => model.AuthorName)
+    @Html.LabelFor(model => model.AuthorBirthDay, "Author Birthday")
+    @Html.EditorFor(model => model.AuthorBirthDay)
+    <input type="submit" value="Save"/> <hr>
+  
+  }
+  
+  <p>@Html.ActionLink($"Back to {Model.AuthorName}'s Details", "Details", new { id = Model.AuthorId})</p>
+</div>

@@ -6,40 +6,42 @@
 @using Library.Models;
 @using System.Collections.Generic;
 
-<h2>Catalog Details</h2>
-<hr />
-<h3>@Html.DisplayNameFor(model => model.CatalogName): @Html.DisplayFor(model => model.CatalogName)</h3>
-
-@if(@Model.Books.Count == 0)
-{
-  <p>This catalog does not contain any books</p>
-}
-else
-{
-  <h4>Books in this catalog:</h4>
-  <ul>
-  @foreach(Book theseBooks in Model.Books)
+<div class="container">
+  <h2>Catalog Details</h2>
+  <hr />
+  <h3>@Html.DisplayNameFor(model => model.CatalogName): @Html.DisplayFor(model => model.CatalogName)</h3>
+  
+  @if(@Model.Books.Count == 0)
   {
-    string authors = "";
-    @if(theseBooks.JoinEntities.Count == 0)
-    {
-      authors = "This book does not currently have an author attributed to it.";
-    }
-    else
-    {
-      List<string> authorsList = new List<string>();
-      @foreach(AuthorBook join in theseBooks.JoinEntities)
-      {
-        authorsList.Add(join.Author.AuthorName);
-      }
-      authors = String.Join(", ", authorsList);
-    }
-    <li>@theseBooks.BookName | Authors: @authors </li>
+    <p>This catalog does not contain any books</p>
   }
-  </ul>
-}
-
-<p>@Html.ActionLink("Back to catalogs", "Index")</p>
-<p>@Html.ActionLink("Edit Catalog", "Edit", new { id = Model.CatalogId })</p>
-<p>@Html.ActionLink("Delete Catalog", "Delete", new { id = Model.CatalogId })</p>
-<p>@Html.ActionLink("Create new Book", "Create", "Books")</p>
+  else
+  {
+    <h4>Books in this catalog:</h4>
+    <ul>
+    @foreach(Book theseBooks in Model.Books)
+    {
+      string authors = "";
+      @if(theseBooks.JoinEntities.Count == 0)
+      {
+        authors = "This book does not currently have an author attributed to it.";
+      }
+      else
+      {
+        List<string> authorsList = new List<string>();
+        @foreach(AuthorBook join in theseBooks.JoinEntities)
+        {
+          authorsList.Add(join.Author.AuthorName);
+        }
+        authors = String.Join(", ", authorsList);
+      }
+      <li>@theseBooks.BookName | Authors: @authors </li>
+    }
+    </ul>
+  }
+  
+  <p>@Html.ActionLink("Back to catalogs", "Index")</p>
+  <p>@Html.ActionLink("Edit Catalog", "Edit", new { id = Model.CatalogId })</p>
+  <p>@Html.ActionLink("Delete Catalog", "Delete", new { id = Model.CatalogId })</p>
+  <p>@Html.ActionLink("Create new Book", "Create", "Books")</p>
+</div>

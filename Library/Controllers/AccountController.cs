@@ -33,8 +33,6 @@ namespace Library.Controllers
                                      .Where(entry => entry.UserId == currentUser.UserName)
                                      .Include(entry => entry.Book)
                                      .ToList();
-      List<Book> Books = _db.Books.ToList();
-      ViewBag.books = Books;
       // List<Book> userBooks = _db.Books
       //                           .Include(book => book.JoinEntities2)
       //                           .ToList(); 

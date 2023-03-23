@@ -5,22 +5,24 @@
 @using Library.Models
 @model Library.Models.Book
 
-<h1>Book Checkout</h1>
-
-<h3>Checkout @Html.ActionLink($"{Model.BookName}", "Details")?</h3>
-
-@if (Model.Copies > 0)
-{
-  @using (Html.BeginForm())
+<div class="container">
+  <h1>Book Checkout</h1>
+  
+  <h3>Checkout @Html.ActionLink($"{Model.BookName}", "Details")?</h3>
+  
+  @if (Model.Copies > 0)
   {
-    @Html.HiddenFor(model => model.BookId)
-    @Html.HiddenFor(model => model.BookName)
-
-    <input type="submit" value="Checkout" />
+    @using (Html.BeginForm())
+    {
+      @Html.HiddenFor(model => model.BookId)
+      @Html.HiddenFor(model => model.BookName)
+  
+      <input type="submit" value="Checkout" />
+    }
   }
-}
-else
-{
-  <h4>All @Model.MaxCopies of this book have been checked out! Please come back later! </h4>
-}
-
+  else
+  {
+    <h4>All @Model.MaxCopies of this book have been checked out! Please come back later! </h4>
+  }
+  
+</div>

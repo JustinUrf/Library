@@ -4,22 +4,24 @@
 
 @model Library.Models.Book
 
-<h4>Add a new book</h4>
-
-<p>@Html.ValidationMessageFor(model => model.CatalogId, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
-<p>@Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
-
-@using (Html.BeginForm())
-{
-  @Html.LabelFor(model => model.BookName, "Book Name")
-  @Html.TextBoxFor(model => model.BookName)
-
-  @Html.LabelFor(model => model.Copies, "How many copies?")
-  @Html.TextBoxFor(model => model.Copies)
+<div class="container">
+  <h4>Add a new book</h4>
   
-  @Html.LabelFor(model => model.CatalogId, "Catalog Id")
-  @Html.DropDownList("CatalogId")
-  <br>
-  <input type="submit" value="Add new book" class="" />
-}
-<p>@Html.ActionLink("Show all books", "Index")</p>
+  <p>@Html.ValidationMessageFor(model => model.CatalogId, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+  <p>@Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+  
+  @using (Html.BeginForm())
+  {
+    @Html.LabelFor(model => model.BookName, "Book Name")
+    @Html.TextBoxFor(model => model.BookName)
+  
+    @Html.LabelFor(model => model.Copies, "How many copies?")
+    @Html.TextBoxFor(model => model.Copies)
+  
+    @Html.LabelFor(model => model.CatalogId, "Catalog Id")
+    @Html.DropDownList("CatalogId")
+    <br>
+    <input type="submit" value="Add new book" class="" />
+  }
+  <p>@Html.ActionLink("Show all books", "Index")</p>
+</div>
