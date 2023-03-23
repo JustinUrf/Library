@@ -135,14 +135,14 @@ namespace Library.Controllers
       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
       // book.Copies = book.Copies - 1;
       #nullable enable
-      UserBook? joinEntity = _db.UserBooks.FirstOrDefault(join => (join.User == currentUser && join.BookId == book.BookId));
+      UserBook? joinEntity = _db.UserBooks.FirstOrDefault(join => (join.UserId == currentUser.UserName && join.BookId == book.BookId));
       #nullable disable
       if (joinEntity == null)
       {
         Book thisBook = _db.Books.FirstOrDefault(model => model.BookId == book.BookId);
         thisBook.Copies = thisBook.Copies - 1;
         _db.Books.Update(thisBook);
-        _db.UserBooks.Add(new UserBook() { User = currentUser, BookId = book.BookId });
+        _db.UserBooks.Add(new UserBook() { UserId = currentUser.UserName, BookId = book.BookId });
         _db.SaveChanges();
       }
       return RedirectToAction("Details", new { id = book.BookId });
@@ -167,6 +167,7 @@ namespace Library.Controllers
       {
         Error error = new Error {};
         string errorMessage = "Input Needs To Be A NUMBER Greater Than 0 If You Want To Add Copies!";
+        ViewBag.errorMessage1 = errorMessage;
         error.ErrorMessage = errorMessage;
         error.StoredId = book.BookId;
         return RedirectToAction("Error", error);

@@ -13,7 +13,8 @@ namespace Library.Models
     public int MaxCopies { get; set; }
     public int CatalogId { get; set; }
     public Catalog Catalog {get; set; }
-    public List<AuthorBook> JoinEntities { get;}
+    public List<AuthorBook> JoinEntities { get; } 
+    public List<UserBook> JoinEntities2 { get; }
     
   }
 }

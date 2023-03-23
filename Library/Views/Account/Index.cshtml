@@ -1,12 +1,20 @@
 @{
   Layout = "_Layout";
 }
+@using Library.Models
 
 <h2>Authentication with Identity</h2>
 <hr />
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello @User.Identity.Name!</p>
+  <p>Here are the books you've checked out!</p>
+
+  @foreach (UserBook join in Model)
+  {
+    <p>@Html.ActionLink($"{join.Book.BookName}", "Details", "Books", new { id = join.Book.BookId })</p>
+  }  
+
   @using (Html.BeginForm("LogOff", "Account"))
   {
     <input type="submit" class="btn btn-primary" value="Log out" />

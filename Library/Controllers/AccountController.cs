@@ -1,10 +1,16 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using Library.Models;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using System.Security.Claims;
 using Library.ViewModels;
 
-namespace ToDoList.Controllers
+namespace Library.Controllers
 {
   public class AccountController : Controller
   {
@@ -19,10 +25,49 @@ namespace ToDoList.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
-    {
-      return View();
+    public async Task<ActionResult> Index()
+    { 
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<UserBook> usersBooks = _db.UserBooks
+                                     .Where(entry => entry.UserId == currentUser.UserName)
+                                     .Include(entry => entry.Book)
+                                     .ToList();
+      List<Book> Books = _db.Books.ToList();
+      ViewBag.books = Books;
+      // List<Book> userBooks = _db.Books
+      //                           .Include(book => book.JoinEntities2)
+      //                           .ToList(); 
+      // User newUser = new User {};
+      // newUser.UserId = currentUser.UserName;
+      // newUser.UserId = currentUser.UserName;
+      // newUser.Books = userBooks;
+      // ViewBag.thisUser = currentUser.UserName;
+      // TempData["UserName"] = currentUser.UserName;
+      return View(usersBooks);
     }
+    
+
+
+
+
+
+
+
+
+    //  Author thisAuthor = _db.Authors
+    //                               .Include(author => author.JoinEntities)
+    //                               .ThenInclude(join => join.Book)
+    //                               .FirstOrDefault(author => author.AuthorId == id);
+    //   return View(thisAuthor);
+
+    // string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    //   ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+    //   List<Item> userItems = _db.Items
+    //                       .Where(entry => entry.User.Id == currentUser.Id)
+    //                       .Include(item => item.Category)
+    //                       .ToList();
+    //   return View(userItems);
 
     public IActionResult Register()
     {
